@@ -43,6 +43,10 @@ public class Student {
         return friends.get(friend);
     }
 
+    public int setFriendRep(Student friend, int newRep) {
+        return friends.put(friend, newRep);
+    }
+
     public Student[] getFriends() {
         return friends.keySet().toArray(new Student[0]);
     }
