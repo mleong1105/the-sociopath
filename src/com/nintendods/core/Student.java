@@ -23,16 +23,16 @@ public class Student {
 
         rep = Util.randomBetween(0, 10);
         dive = Util.randomBetween(0, 100);
-        lunchStart = Util.randomBetween(1100, 1400);
+        lunchStart = Math.min(1400, Util.randomBetween(11, 15) * 100 + Util.randomBetween(0, 60));
         lunchPeriod = Util.randomBetween(5, 60);
 
         friends = new HashMap<>();
     }
 
     /**
-     * @param  friend friend to add
-     * @param  relativeRep the reputation from this student to friend being added
-     * @param  otherRelativeRep the reputation from friend to this student
+     * @param friend           friend to add
+     * @param relativeRep      the reputation from this student to friend being added
+     * @param otherRelativeRep the reputation from friend to this student
      */
     public void addFriend(Student friend, int relativeRep, int otherRelativeRep) {
         friends.put(friend, relativeRep);
