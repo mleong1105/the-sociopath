@@ -2,6 +2,14 @@ package com.nintendods.core;
 
 import java.util.Random;
 
+/**
+ * Event 2: Teaching a stranger how to solve lab questions
+ * A student will teach another student
+ * Random chance of determining whether or not successfully taught
+ * If successfully taught: rep relative to that person = 10 + 2 (initial rep)
+ * If not successfully taught: rep relative is 2 (initial rep)
+ */
+
 public class TeachStrangerLabQuestion extends Event {
     Student studentBeingTaught;
 

@@ -1,6 +1,7 @@
 package com.nintendods.core;
 
 import com.nintendods.util.Util;
+
 /**
  * Event 2: Chitchat (Passive Event)
  * randomly generate a friend of A (Student B)
@@ -15,12 +16,12 @@ import com.nintendods.util.Util;
  * if bad message, repAC = repAC - repAB
  */
 
-public class ChitChat extends Event{
+public class ChitChat extends Event {
     Student studentB;
     Student studentC;
 
-    public ChitChat(Student student){
-        super(student);  
+    public ChitChat(Student student) {
+        super(student);
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ChitChat extends Event{
         do {
             studentB = generateRandomFriend(student);
         } while (studentB.getFriends().length < 2); //student B must have at least 2 friends
-      
+
         do {
             studentC = generateRandomFriend(studentB);
         } while (studentC.id == student.id);    //student C cannot be student A
@@ -38,13 +39,13 @@ public class ChitChat extends Event{
         int repBA = studentB.getFriendRep(student);
         int repAC = student.getFriendRep(studentC);
         int diveB = studentB.dive;
-        int probability = Math.max(0, repBA*10 - diveB/2);  //capped at 0
+        int probability = Math.max(0, repBA * 10 - diveB / 2);  //capped at 0
         int randInt = Util.randomBetween(0, 101);
-        
+
         System.out.printf("%nStudent[%d] chatted with Student[%d] about Student[%d]%n",
-         studentB.id, studentC.id, student.id);       //B chatted to C about A
+                studentB.id, studentC.id, student.id);       //B chatted to C about A
         if (randInt < probability) {
-            repAC += repAB/2;
+            repAC += repAB / 2;
             System.out.println("Good message");
         } else {
             repAC -= repAB;
@@ -52,12 +53,11 @@ public class ChitChat extends Event{
         }
         student.setFriendRep(studentC, repAC);
         System.out.printf("Current rep points of Student[%d] to Student[%d]: %d%n",
-         student.id, studentC.id, repAC);
+                student.id, studentC.id, repAC);
     }
 
     public Student generateRandomFriend(Student student) {
         int randInt = Util.randomBetween(0, student.getFriends().length);
-        return student.getFriends()[randInt];   
+        return student.getFriends()[randInt];
     }
-
 }

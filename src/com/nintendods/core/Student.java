@@ -23,7 +23,7 @@ public class Student {
 
         rep = Util.randomBetween(0, 10);
         dive = Util.randomBetween(0, 100);
-        lunchStart = Math.min(1400, Util.randomBetween(11, 15) * 100 + Util.randomBetween(0, 60));
+        lunchStart = Util.randomBetween(11, 14) * 100 + Util.randomBetween(0, 60);
         lunchPeriod = Util.randomBetween(5, 60);
 
         friends = new HashMap<>();
