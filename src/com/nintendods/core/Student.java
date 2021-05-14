@@ -40,11 +40,21 @@ public class Student {
     }
 
     public int getFriendRep(Student friend) {
-        return friends.get(friend);
+        try {
+            return friends.get(friend);
+        } catch (NullPointerException e) {  //no friend link yet
+            addFriend(friend, 0, 0);
+            return 0;
+        }
     }
 
     public int setFriendRep(Student friend, int newRep) {
-        return friends.put(friend, newRep);
+        try {
+            return friends.put(friend, newRep);
+        } catch (NullPointerException e) {  //no friend link yet
+            addFriend(friend, newRep, 0);
+            return 0;
+        }
     }
 
     public Student[] getFriends() {
