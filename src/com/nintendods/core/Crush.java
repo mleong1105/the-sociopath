@@ -32,6 +32,8 @@ public class Crush extends Event {
             }
         }
         toConvince.remove(student);
+        
+        initializeRumour()  //rumour pops out from nowhere
     }
 
     @Override
