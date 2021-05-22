@@ -29,7 +29,7 @@ public class Main {
 
         // ======= TESTING (NOT FINAL)  =======
 
-        // EVENT 1
+        // EVENT 1: TEACH STRANGER
         // s1 will teach s2
         Event event1 = new TeachStrangerLabQuestion(s1, s2);
         event1.execute();
@@ -37,7 +37,7 @@ public class Main {
         // or 12 if taught successfully
         System.out.println(s1.getFriendRep(s2));
 
-        // EVENT 2
+        // EVENT 2: CHITCHAT
         //passive event: happens to anyone and everyone
         int N = Util.randomBetween(0, 6);   //let 0-5 chitchats happen every day
         for (int i = 0; i < N; i++) {
@@ -46,8 +46,16 @@ public class Main {
             event2.execute();
         }
 
-        // EVENT 3
+        // EVENT 3: ROAD TO GLORY
         Event event3 = new RoadToGlory(s1, students);
         event3.execute();
+
+        //EVENT 5: CRUSH
+        Event event5 = new Crush(s1, s6, students);
+        event5.execute();
+    
+        //ADDITIONAL CHALLENGE 3: MATCHMAKER 
+        Event matchmaker = new Matchmaker(s2);
+        matchmaker.execute();
     }
 }
