@@ -4,8 +4,8 @@ import com.nintendods.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-//import java.util.Scanner;
 
+//import java.util.Scanner;
 /**
  * Event 5: Meet your crush
  * Rumour will begin in a cluster that does not contain crush
@@ -26,14 +26,14 @@ public class Crush extends Event {
     public Crush(Student student, Student crush, Student[] allStudents){
         super(student);
         this.crush = crush;
-        for (Student std : allStudents) {   //add everyone except crush and main protagonist
-            if (std.id != crush.id) {
-                toConvince.add(std);
+        for (int i = 0; i < allStudents.length; i++) {   //add everyone except crush and main protagonist
+            if (allStudents[i].id != crush.id) {
+                toConvince.add(allStudents[i]);
             }
         }
         toConvince.remove(student);
         
-        initializeRumour()  //rumour pops out from nowhere
+        initializeRumour();  //rumour pops out from nowhere
     }
 
     @Override
@@ -67,14 +67,16 @@ public class Crush extends Event {
         int randInt;
         int crushCluster = inCluster(crush);
         if (crushCluster == 1) {    //rumour starts from cluster 2
-            randInt = Util.randomBetween(0, cluster2.length);
+            randInt = cluster2[Util.randomBetween(0, cluster2.length)];
         } else {                    //rumour starts from cluster 1
-            randInt = Util.randomBetween(0, cluster1.length);
+            randInt = cluster1[Util.randomBetween(0, cluster1.length)];
         }
         //randomize beginner of rumour
-        for (Student student : toConvince) {
-            if (student.id == randInt){
-                knowsRumour.add(student);
+        for (int i = 0; i < toConvince.size(); i++) {
+            if (toConvince.get(i).id == randInt){
+                knowsRumour.add(toConvince.get(i));
+                System.out.printf("\nStudent[%d] has started a rumour that you have a crush on Student[%d]\n\n",
+                 toConvince.get(i).id, crush.id);
                 break;
             }
         }
@@ -122,16 +124,22 @@ public class Crush extends Event {
         }
         convinced.add(student);
         toConvince.remove(student);
+        System.out.printf("\nConvinced Student[%d]\n", student.id);
     }
 
     public void spreadRumour() {
-        for (Student s : knowsRumour) {
-            for (Student friend : s.getFriends()) {
-                if (!knowsRumour.contains(friend) && !convinced.contains(friend)) {
-                    knowsRumour.add(friend);
+        ArrayList<Student> newToRumour = new ArrayList<>();
+        for (int i = 0; i < knowsRumour.size(); i++) {
+            Student[] friends = knowsRumour.get(i).getFriends();
+            for (int j = 0; j < friends.length; j++) {
+                if (!knowsRumour.contains(friends[j]) && !convinced.contains(friends[j])) {
+                    newToRumour.add(friends[j]);
+                    System.out.printf("Student[%d] told Student[%d] about the rumour\n",
+                     knowsRumour.get(i).id, friends[j].id);
                     break;
                 }
             }
         }
+        knowsRumour.addAll(newToRumour);
     }
 }
