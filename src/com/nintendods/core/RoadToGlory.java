@@ -21,53 +21,44 @@ public class RoadToGlory extends Event {
 
         // Determine students interested in
         for (Student s : allStudents) {
-            if (Util.randomBetween(0, 2) == 0)
+            if (Util.randomBetween(0, 2) == 0 && s.id != student.id)
                 studentsInterested.add(s);
         }
 
         // Sort students by lunchStart time
         studentsInterested.sort(Comparator.comparingInt(o -> o.lunchStart));
 
-        // TODO: Debug only
-        studentsInterested.forEach(s1 -> System.out.printf("Student %s = %d : %d min%n", s1.id, s1.lunchStart, s1.lunchPeriod));
+        System.out.println("Students interested in lunch times");
+        studentsInterested.forEach(s1 -> System.out.printf("Student %s = %d - %d (%d min)%n",
+                s1.id, s1.lunchStart, Util.reformatTime(s1.lunchStart, s1.lunchPeriod), s1.lunchPeriod));
     }
 
     @Override
     public void execute() {
-        Map<Integer, Integer> lunchTimes = new LinkedHashMap<>();
+        Deque<Student> studentsOnTable = new ArrayDeque<>();
 
-        // TODO: Code kinda ugly ngl, clean up if statements
-        for (int i = 0; i < studentsInterested.size(); i++) {
-            Student s = studentsInterested.get(i);
+        int repGained = 0;
+        for (Student s : studentsInterested) {
+            // Check if seated students should leave table
+            for (Student seatedStudent : studentsOnTable) {
+                if (s.lunchStart > Util.reformatTime(seatedStudent.lunchStart, seatedStudent.lunchPeriod)) {
+                    studentsOnTable.remove(seatedStudent);
+                    System.out.printf("%d left the table ", seatedStudent.id);
+                }
+            }
 
-            // Update friend rep
+            // Don't add student if table full
+            if (studentsOnTable.size() >= 3)
+                continue;
+
+            // Add student to table
+            studentsOnTable.push(s);
             s.setFriendRep(student, s.getFriendRep(student) + 1);
+            repGained++;
 
-            int endTime = Util.reformatTime(s.lunchStart + s.lunchPeriod);
-
-            // Calculate lunch timetable
-            if (studentsInterested.size() == 1) {
-                lunchTimes.put(s.lunchStart, endTime);
-                break;
-            }
-
-            if (i == 0) {
-                lunchTimes.put(s.lunchStart, Math.min(endTime, studentsInterested.get(i + 1).lunchStart));
-            } else if (i == studentsInterested.size() - 1) {
-                lunchTimes.put(Math.max(s.lunchStart, studentsInterested.get(i - 1).lunchStart), endTime);
-            } else {
-                lunchTimes.put(Math.max(s.lunchStart, studentsInterested.get(i - 1).lunchStart),
-                        Math.min(endTime, studentsInterested.get(i + 1).lunchStart));
-            }
+            System.out.printf("%d came to the table%n", s.id);
         }
 
-        // Output lunch timetable
-        System.out.println("Lunch timetable");
-
-        int i = 0;
-        for (Map.Entry<Integer, Integer> entry : lunchTimes.entrySet()) {
-            System.out.printf("Student %d = %d -> %d%n", studentsInterested.get(i).id, entry.getKey(), entry.getValue());
-            i++;
-        }
+        System.out.printf("%nRep gained: %d%n", repGained);
     }
 }
