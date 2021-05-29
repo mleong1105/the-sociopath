@@ -4,12 +4,7 @@ import com.nintendods.util.Util;
 
 import java.util.*;
 
-/**
- * Event 3: Road to glory
- * Have lunch with as many people as possible
- * Select random students interested in
- * too lazy to explain...
- */
+// Event3: Road To Glory
 
 public class RoadToGlory extends Event {
     private final List<Student> studentsInterested;

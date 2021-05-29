@@ -57,5 +57,9 @@ public class Main {
         //ADDITIONAL CHALLENGE 3: MATCHMAKER 
         Event matchmaker = new Matchmaker(s2);
         matchmaker.execute();
+
+        // Additional challenge 6: Herd Immunity
+        Event herdImmunity = new HerdImmunity(null, students, 3);
+        herdImmunity.execute();
     }
 }
