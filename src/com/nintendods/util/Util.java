@@ -19,4 +19,20 @@ public class Util {
 
         return Integer.parseInt(hours + (minutes < 10 ? "0" + minutes : String.valueOf(minutes)));
     }
+    
+    public static void display(Student[] students) {
+        System.out.println("\nPrint Graph:");
+        for (int i = 0; i < students.length; i++) {
+            System.out.printf("#Student[%d]: ", students[i].id);
+            Student[] friends = students[i].getFriends();
+            //sort by student id
+            List<Student> friendList = Arrays.asList(friends);
+            friendList.sort(Comparator.comparingInt(o -> o.id));
+            friends = friendList.toArray(friends);
+            for (int j = 0; j < friends.length; j++) {
+                System.out.printf("| Student[%d], %d |", friends[j].id, students[i].getFriendRep(friends[j]));
+            }
+            System.out.println();
+        }
+    }
 }
