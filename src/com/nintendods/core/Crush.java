@@ -50,15 +50,15 @@ public class Crush extends Event {
             crush.setFriendRep(student, crushRep);      //penalty: he/she hates you now
             return;
         } else {    //convince by priority
-            /*TODO: user may choose to NOT convince people on that day
+            //user may choose to NOT convince people on that day
             Scanner input = new Scanner(System.in);
             System.out.print("Do you want to convince peoeple today? (y/n): ");
             String ans = input.nextLine();
             input.close();
             if (ans.equalsIgnoreCase("y")) {
                 convince(toConvince.get(0));
-            }*/
-            convince(toConvince.get(0));
+            } else {
+                System.out.println("You did not convince anyone today.");
         }
     }
 
