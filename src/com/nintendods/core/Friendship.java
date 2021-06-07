@@ -1,3 +1,6 @@
+package com.nintendods.core;
+
+import com.nintendods.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
