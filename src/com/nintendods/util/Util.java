@@ -1,5 +1,7 @@
 package com.nintendods.util;
 
+import com.nintendods.core.Student;
+
 import java.util.Random;
 
 public class Util {
@@ -43,5 +45,4 @@ public class Util {
             }
         }
     }
-
 }
