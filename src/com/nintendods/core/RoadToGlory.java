@@ -12,6 +12,8 @@ public class RoadToGlory extends Event {
     public RoadToGlory(Student student, Student[] allStudents) {
         super(student);
 
+        System.out.printf("Student %d is having lunch%n%n", student.id);
+
         studentsInterested = new ArrayList<>();
 
         // Determine students interested in
@@ -23,13 +25,16 @@ public class RoadToGlory extends Event {
         // Sort students by lunchStart time
         studentsInterested.sort(Comparator.comparingInt(o -> o.lunchStart));
 
-        System.out.println("Students interested in lunch times");
+        System.out.println("Students interested in lunch times:");
         studentsInterested.forEach(s1 -> System.out.printf("Student %s = %d - %d (%d min)%n",
                 s1.id, s1.lunchStart, Util.reformatTime(s1.lunchStart, s1.lunchPeriod), s1.lunchPeriod));
     }
 
+    // TODO: Include times students came to and left the table
     @Override
     public void execute() {
+        System.out.printf("%nStudent lunch intervals:%n");
+
         Deque<Student> studentsOnTable = new ArrayDeque<>();
 
         int repGained = 0;
@@ -38,7 +43,7 @@ public class RoadToGlory extends Event {
             for (Student seatedStudent : studentsOnTable) {
                 if (s.lunchStart > Util.reformatTime(seatedStudent.lunchStart, seatedStudent.lunchPeriod)) {
                     studentsOnTable.remove(seatedStudent);
-                    System.out.printf("%d left the table ", seatedStudent.id);
+                    System.out.printf("Student %d left the table, ", seatedStudent.id);
                 }
             }
 
@@ -51,7 +56,7 @@ public class RoadToGlory extends Event {
             s.setFriendRep(student, s.getFriendRep(student) + 1);
             repGained++;
 
-            System.out.printf("%d came to the table%n", s.id);
+            System.out.printf("Student %d came to the table%n", s.id);
         }
 
         System.out.printf("%nRep gained: %d%n", repGained);

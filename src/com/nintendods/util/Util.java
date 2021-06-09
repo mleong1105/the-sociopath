@@ -22,6 +22,15 @@ public class Util {
         return Integer.parseInt(hours + (minutes < 10 ? "0" + minutes : String.valueOf(minutes)));
     }
 
+    public static boolean intArrayContains(int[] arr, int v){
+        for (int i : arr) {
+            if(v == i)
+                return true;
+        }
+
+        return false;
+    }
+
     //display graph of student's rep to each other
     public static void display(Student[] students) {
         System.out.print("\nPrint Graph:\n   |");

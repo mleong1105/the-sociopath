@@ -41,7 +41,6 @@ public class KenThompson extends Event{
     
     public KenThompson() {
         super(new Student());//obey parent class command
-        count = 1;
     }
 
     public String addEdge(int count) {
