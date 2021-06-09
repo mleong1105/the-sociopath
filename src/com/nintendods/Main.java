@@ -53,6 +53,10 @@ public class Main {
         //EVENT 5: CRUSH
         Event event5 = new Crush(s1, s6, students);
         event5.execute();
+        
+        //EVENT 6: FRIENSHIP
+        Event event6 = new Friendship();
+        event6.execute();
     
         //ADDITIONAL CHALLENGE 3: MATCHMAKER 
         Event matchmaker = new Matchmaker(s2);
@@ -61,5 +65,9 @@ public class Main {
         // Additional challenge 6: Herd Immunity
         Event herdImmunity = new HerdImmunity(null, students, 3);
         herdImmunity.execute();
+        
+        //Additional challenge 7: Ken Thompson
+        Event KenThompson = new KenThompson();
+        KenThompson.execute();
     }
 }
