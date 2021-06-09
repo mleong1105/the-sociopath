@@ -34,4 +34,25 @@ public class CommandParser {
         System.out.print("> ");
         return scn.nextInt();
     }
+    
+    //Y/N input
+    public char readChar(char[] choices) {
+        while (true) {
+            try {
+                System.out.print("> ");
+                char v = scn.nextLine().charAt(0);
+
+                for (char c : choices) {
+                    if (c == v) {
+                        return v;
+                    }
+                }
+                System.out.println("Invalid choice. Chose again.");
+            } catch (Exception ignored) {
+                System.out.println("Invalid format. Try again.");
+                scn.nextLine();
+            }
+        }
+    }
+
 }
