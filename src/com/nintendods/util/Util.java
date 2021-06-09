@@ -21,7 +21,7 @@ public class Util {
 
         return Integer.parseInt(hours + (minutes < 10 ? "0" + minutes : String.valueOf(minutes)));
     }
-    
+
     //display graph of student's rep to each other
     public static void display(Student[] students) {
         System.out.print("\nPrint Graph:\n   |");
@@ -40,7 +40,7 @@ public class Util {
             System.out.printf("#%-2d|", students[i].id);
             for (int j = 0; j < students.length; j++) {
                 int r = students[i].getFriendRep(students[j]);
-                String rep = (r == 0) ? " " : String.valueOf(r); 
+                String rep = (r == 0) ? " " : String.valueOf(r);
                 System.out.printf("%-3s|", rep);
             }
         }

@@ -5,7 +5,7 @@ import com.nintendods.util.Util;
 
 public class Main {
     public static void main(String[] args) {
-        //initialize graph
+        // Initialize students
         Student s1 = new Student();
         Student s2 = new Student();
         Student s3 = new Student();
