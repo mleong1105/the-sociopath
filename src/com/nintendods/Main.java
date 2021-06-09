@@ -37,8 +37,14 @@ public class Main {
         CommandParser commandParser = new CommandParser();
         int day = 1;
 
+        Event crush = new Crush();//will affect entire game
+        boolean hasCrush = false;
+
         // Welcome message
-        System.out.printf("Welcome to gaem. %n%n");
+        System.out.printf("Welcome to Sociopath. %n%n");
+
+        System.out.print("Choose student to play as [1-10]: ");
+        int studentID = commandParser.readInt(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 
         // 7 days per round
         while (day < 8) {
@@ -52,32 +58,35 @@ public class Main {
                 System.out.printf("%nChoose an event:%n");
                 System.out.println("1. Teach a stranger a lab question");
                 System.out.println("2. Road to glory");
+                System.out.println("3. Arranging books");
+                System.out.println("4. Crush");
+                System.out.println("5. Matchmaker");
 
-                int choice = commandParser.readInt(new int[]{1, 2});
+                int choice = commandParser.readInt(new int[]{1, 2, 3, 4, 5});
 
                 switch (choice) {
-                    case 1: {
+                    case 1: {//teach stranger
                         // Create student id choices
                         List<Integer> studentIDs = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-
+                        /*
                         // Chose teacher student
                         System.out.println("Select student to be a teacher:");
                         int teachId = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
-
+                        */
                         // Cannot chose same students
-                        studentIDs.remove(teachId - 1);
-
+                        studentIDs.remove(studentID - 1);
+                        
                         // Chose taught student
                         System.out.println("Select student to be taught:");
                         int taughtId = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
 
                         // Create and execute event
-                        Event e = new TeachStrangerLabQuestion(students[teachId - 1], students[taughtId - 1]);
+                        Event e = new TeachStrangerLabQuestion(students[studentID - 1], students[taughtId - 1]);
                         e.execute();
 
                         break;
                     }
-                    case 2: {
+                    case 2: {//road to glory
                         // Create student id choices
                         List<Integer> studentIDs = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
@@ -90,6 +99,36 @@ public class Main {
                         e.execute();
 
                         break;
+                    } 
+                    case 3: {//arranging books
+                        //TODO
+                        break;
+                    }
+                    case 4: {//initialize crush
+                        System.out.println("Crush.");
+                        if (hasCrush) {
+                            crush.execute();
+                        } else {//manually create crush
+                            List<Integer> studentIDs = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+                            studentIDs.remove(studentID - 1); //cannot have a crush on yourself
+
+                            for (Integer i : studentIDs) {
+                                System.out.print(i + " ");
+                            }
+                            System.out.print("\nInput student ID of your crush from the list above: ");
+
+                            int crushID = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
+
+                            crush = new Crush(students[studentID - 1], students[crushID - 1], students);
+                            
+                            hasCrush = true;
+                        }
+
+                        break;
+                    } case 5: {//matchmaker
+                        System.out.println("Matchmaker.");
+                        Event e = new Matchmaker(students[studentID - 1]);
+                        e.execute();
                     }
 
                     // ...other cases
@@ -97,12 +136,12 @@ public class Main {
 
                 // TODO: Press enter to continue & clear console
 
-                // 20% chance event will happen
-                if (Util.randomBetween(0, 5) == 0) {
+                // 50% chance event will happen
+                if (Util.randomBetween(0, 2) == 0) {
                     System.out.printf("%nRandom Event%n%n");
 
                     // Determine what event will happen
-                    int randEvent = Util.randomBetween(0, 1);
+                    int randEvent = Util.randomBetween(0, 3);
 
                     switch (randEvent) {
                         case 0: {
@@ -114,6 +153,31 @@ public class Main {
 
                             Event e = new HerdImmunity(null, students, numVaccines);
                             e.execute();
+                            break;
+                        } 
+                        case 1: {//chitchat
+                            System.out.println("Chitchat.");
+
+                            int randIndex = Util.randomBetween(0, students.length);
+                            Event e = new ChitChat(students[randIndex]);
+                            e.execute();
+                            break;
+                        } 
+                        case 2: {//crush
+                            System.out.println("Crush.");
+                            if (hasCrush) {
+                                crush.execute();
+                            } else {//randomly set crush
+                                int crushID = studentID - 1;
+
+                                while (crushID == studentID - 1) {//crush cannot be self
+                                    crushID = Util.randomBetween(0, students.length);
+                                }
+
+                                crush = new Crush(students[studentID - 1], students[crushID], students);
+
+                                hasCrush = true;
+                            }
                         }
 
                         // ...other cases
