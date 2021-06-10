@@ -43,8 +43,7 @@ public class Crush extends Event {
     @Override
     public void execute() {
         //run everyday
-        spreadRumour();
-        if (knowsRumour.isEmpty()) {   //End state 1: rumour is gone
+        if (knowsRumour.isEmpty() || toConvince.isEmpty()) {   //End state 1: rumour is gone
             System.out.println("Rumour is gone- Good End");
             return;
         } else if (knowsRumour.contains(crush)) {    //End State 2: crush knows rumour
@@ -54,6 +53,7 @@ public class Crush extends Event {
             crush.setFriendRep(student, crushRep);      //penalty: he/she hates you now
             return;
         } else {    //convince by priority
+            spreadRumour();
             //user may choose to NOT convince people on that day
             System.out.printf("%d people are not yet immune to the rumour. Do you want to convince peoeple today? (y/n): ",
              toConvince.size());
@@ -124,13 +124,26 @@ public class Crush extends Event {
         }
 
         public void convince(Student student) {
-            //TODO: make convincing more difficult by considering dive and rep
-            if (knowsRumour.contains(student)) {
-                knowsRumour.remove(student);
+            //students with dive > 50 might not get convinced so easily 
+            boolean success = true;
+            int chance = Util.randomBetween(0, 100) + 50;
+            if (student.dive > chance) {
+                success = false;
             }
-            convinced.add(student);
-            toConvince.remove(student);
-            System.out.printf("\nConvinced Student[%d]\n", student.id);
+
+            if (success) {  
+                if (knowsRumour.contains(student)) {
+                    knowsRumour.remove(student);
+                }
+                convinced.add(student);
+                toConvince.remove(student);
+                System.out.printf("\nConvinced Student[%d]\n", student.id);
+            } else {
+                System.out.printf("\nFailed to convince Student[%d]\n", student.id); 
+                //move this student to last index in priority list
+                toConvince.remove(student);
+                toConvince.add(student);
+            }
         }
 
         public void spreadRumour() {
