@@ -5,6 +5,7 @@ import com.nintendods.util.Util;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Student {
     public final int id;
 
@@ -43,7 +44,6 @@ public class Student {
         try {
             return friends.get(friend);
         } catch (NullPointerException e) {  //no friend link yet
-            addFriend(friend, 0, 0);
             return 0;
         }
     }
@@ -58,6 +58,29 @@ public class Student {
     }
 
     public Student[] getFriends() {
-        return friends.keySet().toArray(new Student[0]);
+        HashMap<Student, Integer> copy = new HashMap<>(); //creates a copy so original is not affected
+        copy.putAll(friends);
+
+        for (Map.Entry<Student, Integer> element : friends.entrySet()) {
+            Student friend = element.getKey();
+            Integer rep = element.getValue();
+
+            Student me = new Student();
+            for (Map.Entry<Student, Integer> f : friend.friends.entrySet()) {
+                if (f.getKey().id == id) {//find self
+                    me = f.getKey();
+                    break;
+                }
+            }
+            int relativeRep = friend.getFriendRep(me);
+
+            //if rep of either side is less than 1
+            if (rep < 1 || relativeRep < 1){
+                copy.remove(rep, friend);
+            }
+        }
+        return copy.keySet().toArray(new Student[0]);
     }
+
+    
 }
