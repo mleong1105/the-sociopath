@@ -4,7 +4,7 @@ import com.nintendods.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Scanner;
+
 
 /**
  * Event 5: Meet your crush
@@ -23,6 +23,10 @@ public class Crush extends Event {
     static ArrayList<Student> convinced = new ArrayList<>();                 //students who are immune to the rumour
     static ArrayList<Student> toConvince = new ArrayList<>();                //students who need to be convinced
 
+    public Crush(){
+        super(new Student());
+    }
+    
     public Crush(Student student, Student crush, Student[] allStudents){
         super(student);
         this.crush = crush;
@@ -51,11 +55,12 @@ public class Crush extends Event {
             return;
         } else {    //convince by priority
             //user may choose to NOT convince people on that day
-            Scanner input = new Scanner(System.in);
-            System.out.print("Do you want to convince peoeple today? (y/n): ");
-            String ans = input.nextLine();
-            input.close();
-            if (ans.equalsIgnoreCase("y")) {
+            System.out.printf("%d people are not yet immune to the rumour. Do you want to convince peoeple today? (y/n): ",
+             toConvince.size());
+            CommandParser cp = new CommandParser();
+            char ans = cp.readChar(new char[]{'y', 'Y', 'n', 'N'});
+            Character.toLowerCase(ans);
+            if (ans == 'y') {
                 convince(toConvince.get(0));
             } else {
                 System.out.println("You did not convince anyone today.");
@@ -134,6 +139,7 @@ public class Crush extends Event {
                 Student[] friends = knowsRumour.get(i).getFriends();
                 for (int j = 0; j < friends.length; j++) {
                     if (!knowsRumour.contains(friends[j]) && !convinced.contains(friends[j])) {
+                        //if not convinced nor knows rumour, add to knows rumour
                         newToRumour.add(friends[j]);
                         System.out.printf("Student[%d] told Student[%d] about the rumour\n",
                                 knowsRumour.get(i).id, friends[j].id);
