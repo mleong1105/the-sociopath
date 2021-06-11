@@ -101,7 +101,9 @@ public class Main {
                         break;
                     } 
                     case 3: {//arranging books
-                        //TODO
+                        System.out.println("Arranging Books.");
+                        Event e = new ArrangingBooks(students[studentID - 1]);
+                        e.execute;
                         break;
                     }
                     case 4: {//initialize crush
