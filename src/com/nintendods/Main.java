@@ -69,14 +69,10 @@ public class Main {
                     case 1: {//teach stranger
                         // Create student id choices
                         List<Integer> studentIDs = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-                        /*
-                        // Chose teacher student
-                        System.out.println("Select student to be a teacher:");
-                        int teachId = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
-                        */
-                        // Cannot chose same students
+
+                        // Cannot chose same student as playing
                         studentIDs.remove(studentID - 1);
-                        
+
                         // Chose taught student
                         System.out.println("Select student to be taught:");
                         int taughtId = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
@@ -88,23 +84,16 @@ public class Main {
                         break;
                     }
                     case 2: {//road to glory
-                        // Create student id choices
-                        List<Integer> studentIDs = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-
-                        // Chose student to dine
-                        System.out.println("Select student to dine:");
-                        int dineId = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
-
                         // Create and execute event
-                        Event e = new RoadToGlory(students[dineId - 1], students);
+                        Event e = new RoadToGlory(students[studentID - 1], students);
                         e.execute();
 
                         break;
-                    } 
+                    }
                     case 3: {//arranging books
                         System.out.println("Arranging Books.");
                         Event e = new ArrangingBooks(students[studentID - 1]);
-                        e.execute;
+                        e.execute();
                         break;
                     }
                     case 4: {//initialize crush
@@ -123,21 +112,23 @@ public class Main {
                             int crushID = commandParser.readInt(studentIDs.stream().mapToInt(i -> i).toArray());
 
                             crush = new Crush(students[studentID - 1], students[crushID - 1], students);
-                            
+
                             hasCrush = true;
                         }
 
                         break;
-                    } case 5: {//matchmaker
+                    }
+                    case 5: {//matchmaker
                         System.out.println("Matchmaker.");
                         Event e = new Matchmaker(students[studentID - 1]);
                         e.execute();
-                    } case 6: {//friendship
+                    }
+                    case 6: {//friendship
                         System.out.println("Friendship.");
                         System.out.println("There is a bonus event that show the theory\"SIX DEGREE OF SEPERATION\", do you want to proceed to it ?");
                         System.out.print("Reply (1 for yes, 2 for no): ");
-                        int reply = commandParser.readInt(new int[]{1,2});
-                        switch(reply){
+                        int reply = commandParser.readInt(new int[]{1, 2});
+                        switch (reply) {
                             case 1: {
                                 System.out.println("\nSix Degree of Seperation.");
                                 Event e = new KenThompson();
@@ -153,7 +144,6 @@ public class Main {
                         eventCount++;
                         break;
                     }
-                    // ...other cases
                 }
 
                 // TODO: Press enter to continue & clear console
@@ -176,7 +166,7 @@ public class Main {
                             Event e = new HerdImmunity(null, students, numVaccines);
                             e.execute();
                             break;
-                        } 
+                        }
                         case 1: {//chitchat
                             System.out.println("Chitchat.");
 
@@ -184,7 +174,7 @@ public class Main {
                             Event e = new ChitChat(students[randIndex]);
                             e.execute();
                             break;
-                        } 
+                        }
                         case 2: {//crush
                             System.out.println("Crush.");
                             if (hasCrush) {

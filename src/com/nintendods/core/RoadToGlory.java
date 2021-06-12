@@ -33,7 +33,7 @@ public class RoadToGlory extends Event {
     // TODO: Include times students came to and left the table
     @Override
     public void execute() {
-        System.out.printf("%nStudent lunch intervals:%n");
+        System.out.printf("%nLunch timeline:%n");
 
         Deque<Student> studentsOnTable = new ArrayDeque<>();
 
@@ -59,6 +59,6 @@ public class RoadToGlory extends Event {
             System.out.printf("Student %d came to the table%n", s.id);
         }
 
-        System.out.printf("%nRep gained: %d%n", repGained);
+        System.out.printf("%nLunch finished. Rep gained: %d%n", repGained);
     }
 }
