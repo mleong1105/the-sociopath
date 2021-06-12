@@ -55,4 +55,10 @@ public class CommandParser {
         }
     }
 
+    public String readString() {
+        System.out.print("> ");
+        String s = scn.nextLine();
+        return s;
+    }
+
 }
