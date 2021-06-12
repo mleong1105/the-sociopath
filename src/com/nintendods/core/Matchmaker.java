@@ -2,6 +2,7 @@ package com.nintendods.core;
 
 import java.util.*;
 
+
 /**ADDITIONAL CHALLENGE 3: MATCHMAKER
  * Gale-Shapley (Stable Matching) Algorithm (https://www.geeksforgeeks.org/stable-marriage-problem/)
  * the event wont run if student has no friends
@@ -46,7 +47,14 @@ public class Matchmaker extends Event{
         System.out.printf("\nMatchings by ID:\n%-10s\t%-5s\n", "Female", "Male");
         for (int i = 0; i < matchings.length; i++) {
             System.out.printf("%-10d\t%-5d\n", friends[i + mid].id, friends[matchings[i]].id);
-        }    
+        }
+        
+        for (int i = 0; i < friends.length; i++) {
+            int gainRep =  (100 - friends[i].dive) / 20; //divers give less points
+            if (friends[i].id != student.id){//not self
+                friends[i].setFriendRep(student, friends[i].getFriendRep(student) + gainRep);
+            }
+        }
     }
 
     public void setPreference() {
