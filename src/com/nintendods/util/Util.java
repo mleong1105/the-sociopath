@@ -22,9 +22,9 @@ public class Util {
         return Integer.parseInt(hours + (minutes < 10 ? "0" + minutes : String.valueOf(minutes)));
     }
 
-    public static boolean intArrayContains(int[] arr, int v){
+    public static boolean intArrayContains(int[] arr, int v) {
         for (int i : arr) {
-            if(v == i)
+            if (v == i)
                 return true;
         }
 

@@ -2,7 +2,6 @@ package com.nintendods.core;
 
 import com.nintendods.util.Util;
 
-// Parses user input (integer only)
 import java.util.Scanner;
 
 public class CommandParser {
@@ -19,8 +18,7 @@ public class CommandParser {
 
                 if (Util.intArrayContains(choices, v)) {
                     return v;
-                }
-                else {
+                } else {
                     System.out.println("Invalid choice. Chose again.");
                 }
             } catch (Exception ignored) {
@@ -34,7 +32,7 @@ public class CommandParser {
         System.out.print("> ");
         return scn.nextInt();
     }
-    
+
     //Y/N input
     public char readChar(char[] choices) {
         while (true) {

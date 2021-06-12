@@ -20,7 +20,7 @@ public class HerdImmunity extends Event {
     @Override
     public void execute() {
         // Sort all students array by number of friends
-        Arrays.sort(allStudents, Collections.reverseOrder(Comparator.comparingInt(s->s.getFriends().length)));
+        Arrays.sort(allStudents, Collections.reverseOrder(Comparator.comparingInt(s -> s.getFriends().length)));
 
         System.out.printf("%d vaccines to be given to students with most friend group connections%n%n", numVaccines);
 
