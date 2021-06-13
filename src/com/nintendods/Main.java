@@ -62,9 +62,10 @@ public class Main {
 				System.out.println("3. Arranging books");
 				System.out.println("4. Crush");
 				System.out.println("5. Matchmaker");
-				System.out.println("6. Friendship (This event will not decrease your events number)");
+				System.out.println("6. Friendship");
+				System.out.println("7. Six Degree of Seperation");
 
-				int choice = commandParser.readInt(new int[] { 1, 2, 3, 4, 5, 6 });
+				int choice = commandParser.readInt(new int[] { 1, 2, 3, 4, 5, 6, 7});
 
 				switch (choice) {
 					case 1: {// teach stranger
@@ -124,28 +125,18 @@ public class Main {
 						e.execute();
 						break;
 					}
-					case 6: {// friendship
-						System.out.println("Friendship.");
-						System.out.println(
-								"There is a bonus event that show the theory\"SIX DEGREE OF SEPERATION\", do you want to proceed to it ?");
-						System.out.print("Reply (1 for yes, 2 for no): ");
-						int reply = commandParser.readInt(new int[] { 1, 2 });
-						switch (reply) {
-							case 1: {
-								System.out.println("\nSix Degree of Seperation.");
-								Event e = new KenThompson();
-								e.execute();
-								break;
-							}
-							case 2: {
-								Event e = new Friendship();
-								e.execute();
-								break;
-							}
-						}
-						eventCount++;
-						break;
-					}
+					case 6: {//friendship
+                        			System.out.println("Friendship.");
+                        			Event e = new Friendship();
+                        			e.execute();
+                        			break;
+                    			}
+                    			case 7: {
+                        			System.out.println("Six Degree of Seperation");
+                        			Event e = new KenThompson();
+                        			e.execute();
+                        			break;
+                    			}
 				}
 
 				Util.clearScreen();// press enter to clear screen
