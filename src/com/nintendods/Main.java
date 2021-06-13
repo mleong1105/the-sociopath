@@ -209,48 +209,5 @@ public class Main {
 
             day++;
         }
-
-        // ======= TESTING (NOT FINAL)  =======
-
-//        // EVENT 1: TEACH STRANGER
-//        // s1 will teach s2
-//        Event event1 = new TeachStrangerLabQuestion(s1, s2);
-//        event1.execute();
-//        // Should print out 2 if couldn't teach
-//        // or 12 if taught successfully
-//        System.out.println(s1.getFriendRep(s2));
-//
-//        // EVENT 2: CHITCHAT
-//        //passive event: happens to anyone and everyone
-//        int N = Util.randomBetween(0, 6);   //let 0-5 chitchats happen every day
-//        for (int i = 0; i < N; i++) {
-//            int studentID = Util.randomBetween(0, students.length); //might happen to each student
-//            Event event2 = new ChitChat(students[studentID]);
-//            event2.execute();
-//        }
-//
-//        // EVENT 3: ROAD TO GLORY
-//        Event event3 = new RoadToGlory(s1, students);
-//        event3.execute();
-//
-//        //EVENT 5: CRUSH
-//        Event event5 = new Crush(s1, s6, students);
-//        event5.execute();
-//
-//        //EVENT 6: FRIENSHIP
-//        Event event6 = new Friendship();
-//        event6.execute();
-//
-//        //ADDITIONAL CHALLENGE 3: MATCHMAKER
-//        Event matchmaker = new Matchmaker(s2);
-//        matchmaker.execute();
-//
-//        // Additional challenge 6: Herd Immunity
-//        Event herdImmunity = new HerdImmunity(null, students, 3);
-//        herdImmunity.execute();
-//
-//        //Additional challenge 7: Ken Thompson
-//        Event KenThompson = new KenThompson();
-//        KenThompson.execute();
     }
 }
