@@ -5,7 +5,7 @@ import com.nintendods.util.Util;
 import java.util.Scanner;
 
 public class CommandParser {
-    private final Scanner scn;
+    public final Scanner scn;
 
     public CommandParser() {
         scn = new Scanner(System.in);
