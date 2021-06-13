@@ -1,8 +1,10 @@
 package com.nintendods.util;
 
+import com.nintendods.core.CommandParser;
 import com.nintendods.core.Student;
 
 import java.util.Random;
+
 
 public class Util {
     private static final Random rand = new Random();
@@ -33,14 +35,14 @@ public class Util {
 
     //display graph of student's rep to each other
     public static void display(Student[] students) {
-        System.out.print("\nPrint Graph:\n   |");
+        System.out.print("\nRep points:\n   |");
         for (int i = 0; i < students.length; i++) {
             System.out.printf("#%-2d|", students[i].id);//column label
         }
         for (int i = 0; i < students.length; i++) {
             //grid
             System.out.println();
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 11; j++) {
                 System.out.print("---|");
             }
             System.out.println();
@@ -54,4 +56,15 @@ public class Util {
             }
         }
     }
+
+    public static void clearScreen() {
+		try {
+            CommandParser cp = new CommandParser();
+            System.out.print("\nPress <Enter> to continue: ");
+            cp.readString();
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} catch (Exception E) {
+			System.out.println(E);
+		}
+	}
 }
