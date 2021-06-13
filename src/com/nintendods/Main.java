@@ -48,6 +48,7 @@ public class Main {
 
         // 7 days per round
         while (day < 8) {
+
             // Randomly choose if 2 or 3 events per day
             int eventCount = Util.randomBetween(2, 4);
 
@@ -115,13 +116,13 @@ public class Main {
 
                             hasCrush = true;
                         }
-
                         break;
                     }
                     case 5: {//matchmaker
                         System.out.println("Matchmaker.");
                         Event e = new Matchmaker(students[studentID - 1]);
                         e.execute();
+                        break;
                     }
                     case 6: {//friendship
                         System.out.println("Friendship.");
@@ -146,7 +147,7 @@ public class Main {
                     }
                 }
 
-                // TODO: Press enter to continue & clear console
+                Util.clearScreen();//press enter to clear screen
 
                 // 50% chance event will happen
                 if (Util.randomBetween(0, 2) == 0) {
@@ -194,10 +195,17 @@ public class Main {
 
                         // ...other cases
                     }
+
+                    Util.clearScreen();
                 }
 
                 eventCount--;
             }
+
+            //display adjacency matrix at the end of each day
+            System.out.printf("End of Day[%d]\n", day);
+            Util.display(students);
+            Util.clearScreen();
 
             day++;
         }
