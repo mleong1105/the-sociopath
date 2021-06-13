@@ -46,6 +46,15 @@ public class Main {
 		System.out.print("Choose student to play as [1-10]: ");
 		int studentID = commandParser.readInt(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }) - 1;
 
+		// Get total start rep
+		int startRep = 0;
+		Student[] otherStudents = students[studentID].getFriends();
+		for (int i = 0; i < otherStudents.length; i++) {
+			startRep += otherStudents[i].getFriendRep(students[studentID]);
+		}
+
+		System.out.printf("Initial rep: %d%n", startRep);
+
 		// 7 days per round
 		while (day < 8) {
 
@@ -208,5 +217,24 @@ public class Main {
 
 			day++;
 		}
+
+		// Display score
+		int finalRep = 0;
+		otherStudents = students[studentID].getFriends();
+		for (int i = 0; i < otherStudents.length; i++) {
+			finalRep += otherStudents[i].getFriendRep(students[studentID]);
+		}
+
+		System.out.println("=== GAME OVER! ===");
+		System.out.printf("Start rep: %d, Final rep: %d%n", startRep, finalRep);
+
+		int score = Math.max(0, finalRep - startRep);
+
+		if (score < 0)
+			System.out.println("You have become LESS popular");
+		else
+			System.out.println("You have become MORE popular");
+
+		System.out.printf("SCORE: %d%n", score);
 	}
 }
