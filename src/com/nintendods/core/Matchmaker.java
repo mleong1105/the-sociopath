@@ -2,8 +2,8 @@ package com.nintendods.core;
 
 import java.util.*;
 
-
 /**ADDITIONAL CHALLENGE 3: MATCHMAKER
+
  * Gale-Shapley (Stable Matching) Algorithm (https://www.geeksforgeeks.org/stable-marriage-problem/)
  * the event wont run if student has no friends
  * ensure there are an even number of friends (include yourself if odd)
@@ -14,20 +14,20 @@ import java.util.*;
  * print out solution
  */
 
-public class Matchmaker extends Event{
+public class Matchmaker extends Event {
     Student[] friends;  //consider only friends of current student
     int[][] preference; //values of rep of males to females(first half) and females to males(second halfs)
     int size;   //total number of males * females (2N)
     int mid;    //number of males which equals to number of females (N)
 
-    public Matchmaker(Student student){
+    public Matchmaker(Student student) {
         super(student);
         friends = student.getFriends();
         ArrayList<Student> tempList = new ArrayList<>();
         Collections.addAll(tempList, friends);
         if (friends.length % 2 == 1) {//you get to pair yourself with someone if your friends are odd number
             tempList.add(student);
-        }   
+        }
         friends = tempList.toArray(friends);    //revert back to array
         size = friends.length;
         mid = friends.length / 2;
@@ -40,7 +40,7 @@ public class Matchmaker extends Event{
             return;
         }
         setPreference();
-        
+
         int[] matchings = stableMarriage(preference);
 
         //print out partners
@@ -73,14 +73,14 @@ public class Matchmaker extends Event{
             }
             friendRep.sort(Comparator.comparingInt(friends[i]::getFriendRep)); //sort by rep
             Collections.reverse(friendRep);  //descending order
-            rep2d.add(friendRep);  
+            rep2d.add(friendRep);
         }
 
         List<Student> friendArr = Arrays.asList(friends);
         for (int i = 0; i < friends.length; i++) {
             for (int j = 0; j < mid; j++) {
                 //use index of student in friends as reference value
-                preference[i][j] = friendArr.indexOf(rep2d.get(i).get(j)); 
+                preference[i][j] = friendArr.indexOf(rep2d.get(i).get(j));
             }
         }
     }
@@ -109,13 +109,13 @@ public class Matchmaker extends Event{
                     int m1 = fPartner[f - mid]; //get current engaged male
 
                     if (fPrefersM(prefer, f, m, m1)) {
-                    //f prefers m over m1, break engagement with m1 and get engaged with m
-                        fPartner[f - mid] = m; 
+                        //f prefers m over m1, break engagement with m1 and get engaged with m
+                        fPartner[f - mid] = m;
                         maleEngaged[m] = true;
                         maleEngaged[m1] = false;
                     }
                 }
-            }      
+            }
         }
         return fPartner;//returns stable matchings of female to male
     }
@@ -125,7 +125,7 @@ public class Matchmaker extends Event{
         for (int i = 0; i < mid; i++) {
             if (prefer[f][i] == m) {//if m comes first before m1 then f prefers m over m1
                 return true;
-            } 
+            }
             if (prefer[f][i] == m1) {//f prefers m1 over m
                 return false;
             }
@@ -134,6 +134,4 @@ public class Matchmaker extends Event{
     }
 
 
-
-    
 }

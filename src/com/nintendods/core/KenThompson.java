@@ -1,10 +1,9 @@
 package com.nintendods.core;
 
-import com.nintendods.util.Util;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class KenThompson extends Event{
+public class KenThompson extends Event {
 
     private ArrayList<Integer>[] adjList;
     private int friend = 8;
@@ -17,7 +16,7 @@ public class KenThompson extends Event{
 
     public void execute() {
         adjList = new ArrayList[friend + 1];
-        edge_num = r.nextInt(10)+1;
+        edge_num = r.nextInt(10) + 1;
         for (int i = 1; i < 9; i++) {
             adjList[i] = new ArrayList<>();
         }
@@ -36,9 +35,9 @@ public class KenThompson extends Event{
         path.add(1);
         printAllPath(1, 8, isV, path);
         System.out.println("\nThe maximum hop of path is " + maxhop);
-        System.out.println("\nThere is only "+exceptionPath+" path that have more than 6 hop.");
+        System.out.println("\nThere is only " + exceptionPath + " path that have more than 6 hop.");
     }
-    
+
     public KenThompson() {
         super(new Student());//obey parent class command
     }
@@ -75,8 +74,8 @@ public class KenThompson extends Event{
     public void printAllPath(int start, int end, boolean[] isV, ArrayList<Integer> path) {
         if (start == end) {
             if (path.size() < 8) {
-                if(path.size()>maxhop+1){
-                    maxhop=path.size()-1;
+                if (path.size() > maxhop + 1) {
+                    maxhop = path.size() - 1;
                 }
                 System.out.println(printcount + ". " + path);
                 printcount++;

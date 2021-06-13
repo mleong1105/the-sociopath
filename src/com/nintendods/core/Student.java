@@ -75,12 +75,10 @@ public class Student {
             int relativeRep = friend.getFriendRep(me);
 
             //if rep of either side is less than 1
-            if (rep < 1 || relativeRep < 1){
+            if (rep < 1 || relativeRep < 1) {
                 copy.remove(rep, friend);
             }
         }
         return copy.keySet().toArray(new Student[0]);
     }
-
-    
 }
