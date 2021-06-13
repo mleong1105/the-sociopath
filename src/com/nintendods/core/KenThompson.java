@@ -27,6 +27,11 @@ public class KenThompson extends Event {
             isVisited[i][i + 1] = true;
             isVisited[i + 1][i] = true;
         }
+        System.out.println("This is a simulation of the theory Six Degree of Seperation, the system will add edges randomly into the map.\n"
+                        + "The default map we set to this simulation is that there will be total of 8 peoples in the map.\n"
+                        + "The eight person (8) is Ken Thompson, who was the designer of the original unix operating system and the creator of world champion chess-playing computer.\n\n"
+                        + "We had set a default path which connects user(1) to KenThompson(8) linearly following the order of number.\n"
+                        + "In this simulation, the user will find the maximum hop between user(1) to KenThompson(8)");
         System.out.println("Number of Edge added :" + edge_num);
         addEdge(edge_num);
         System.out.println("\nPath between you(1) to Ken Thompson(8) :");
