@@ -17,9 +17,10 @@ public class Friendship extends Event {
 
     @Override
     public void execute() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Input :");
-        int num = sc.nextInt();
+        CommandParser sc = new CommandParser();
+        System.out.println("Please enter a number for the total of edges and vertices(n) :");
+        int num= sc.scn.nextInt();
+        System.out.println("Please enter the edges :");
         num_friend = num + 1;
         adjList = new ArrayList[num_friend];
         for (int i = 0; i < num_friend; i++) {
@@ -27,7 +28,7 @@ public class Friendship extends Event {
         }
 
         for (int i = 0; i != num; i++) {
-            addEdge(sc.nextInt(), sc.nextInt());
+            addEdge(sc.scn.nextInt(), sc.scn.nextInt());
         }
         System.out.println("\nYou can form the following friendship :\n");
         printAllPaths(1);
